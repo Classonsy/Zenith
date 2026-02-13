@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect ZenithPay | Partner Application</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="grid.css">
+    <link rel="stylesheet" href="connect.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Ambient Background Effects -->
+    <div class="ambient-glow"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="noise"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="brand">Zenith<span>Pay</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html" data-i18n="nav_features">Features</a></li>
+            <li><a href="index.html#features" data-i18n="nav_wallet">Wallet</a></li>
+            <li><a href="#" class="active" data-i18n="nav_business">Business</a></li>
+        </ul>
+
+        <button class="lang-trigger">
+            <i class="fas fa-globe"></i> <span>RU</span>
+        </button>
+
+        <button class="btn-login" data-i18n="nav_login">Connect Wallet</button>
+    </nav>
+
+    <main class="connect-container">
+
+        <header class="connect-header">
+            <h1 class="hero-title" style="font-size: 3rem;">
+                <span data-i18n="connect_title_1">Business</span>
+                <span style="color: var(--accent-ruby);" data-i18n="connect_title_2">Connection</span>
+            </h1>
+            <p class="hero-subtitle" data-i18n="connect_subtitle">Select your preferred payment methods and submit an
+                application to start accepting payments with ZenithPay.</p>
+        </header>
+
+        <form id="partner-form">
+            <!-- Payment Methods Section -->
+            <section class="methods-section">
+                <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 2rem;" data-i18n="sect_methods">
+                    Select Payment Methods</h2>
+
+                <div class="methods-grid">
+
+                    <!-- Category 1: E-Wallets -->
+                    <div class="method-category">
+                        <h3 class="category-title"><i class="fas fa-wallet"></i> <span
+                                data-i18n="cat_wallets"></span>E-Wallets</span></h3>
+                        <div class="method-card">
+                            <input type="checkbox" id="zenith-wallet" name="methods" value="ZenithWallet" checked>
+                            <label for="zenith-wallet">
+                                <span class="method-name">ZenithWallet</span>
+                                <span class="method-fee">2% Fee</span>
+                            </label>
+                        </div>
+                        <div class="method-card">
+                            <input type="checkbox" id="yoomoney" name="methods" value="YooMoney">
+                            <label for="yoomoney">
+                                <span class="method-name">YooMoney</span>
+                                <span class="method-fee">5% Fee</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Category 2: Online Banking -->
+                    <div class="method-category">
+                        <h3 class="category-title"><i class="fas fa-university"></i> <span
+                                data-i18n="cat_banking">Online Banking</span></h3>
+                        <div class="method-card">
+                            <input type="checkbox" id="geo-banks" name="methods" value="GeorgianBanks">
+                            <label for="geo-banks">
+                                <span class="method-name" data-i18n="method_geo">TBC / BoG / Credo</span>
+                                <span class="method-fee">1.8% Fee</span>
+                            </label>
+                        </div>
+                        <div class="method-card">
+                            <input type="checkbox" id="sbp" name="methods" value="SBP">
+                            <label for="sbp">
+                                <span class="method-name">SBP (СБП)</span>
+                                <span class="method-fee">3% Fee</span>
+                            </label>
+                        </div>
+                        <div class="method-card">
+                            <input type="checkbox" id="sberpay" name="methods" value="SberPay">
+                            <label for="sberpay">
+                                <span class="method-name">SberPay</span>
+                                <span class="method-fee">3% Fee</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Category 3: Crypto -->
+                    <div class="method-category">
+                        <h3 class="category-title"><i class="fab fa-bitcoin"></i> <span
+                                data-i18n="cat_crypto">Cryptocurrency</span></h3>
+                        <div class="method-card">
+                            <input type="checkbox" id="usdt" name="methods" value="USDT" checked>
+                            <label for="usdt">
+                                <span class="method-name">USDT (TRC20/ERC20)</span>
+                                <span class="method-fee">0.9% Fee</span>
+                            </label>
+                        </div>
+                        <div class="method-card">
+                            <input type="checkbox" id="ton" name="methods" value="TON">
+                            <label for="ton">
+                                <span class="method-name">TON</span>
+                                <span class="method-fee">0.5% Fee</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Application Form -->
+            <section class="form-section">
+                <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 2rem;" data-i18n="sect_details">
+                    Company Details</h2>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label data-i18n="lbl_name">Business / Project Name</label>
+                        <input type="text" placeholder="e.g. My Awesome Shop" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label data-i18n="lbl_website">Website URL</label>
+                        <input type="url" placeholder="https://example.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label data-i18n="lbl_contact">Telegram / Email</label>
+                        <input type="text" placeholder="@username or email" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label data-i18n="lbl_volume">Expected Monthly Volume</label>
+                        <select>
+                            <option>
+                                < $10,000</option>
+                            <option>$10,000 - $50,000</option>
+                            <option>$50,000 - $100,000</option>
+                            <option>> $100,000</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <button type="submit" class="btn-primary submit-btn" data-i18n="btn_submit">Submit
+                        Application</button>
+                    <p class="privacy-note" data-i18n="privacy_note">By submitting, you agree to our Terms of Service &
+                        Privacy Policy.</p>
+                </div>
+            </section>
+        </form>
+
+    </main>
+
+    <footer>
+        <div class="brand" style="font-size: 1rem;">Zenith<span>Pay</span></div>
+        <div class="footer-text" data-i18n="footer_rights">© 2024 ZenithPay. All rights reserved.</div>
+    </footer>
+
+
+
+    <script src="lang.js"></script>
+
+    <script src="lang.js"></script>
+    <script>
+        // Simple visual feedback for checkboxes
+        const cards = document.querySelectorAll('.method-card label');
+        // Inputs are hidden, we style the label
+    </script>
+</body>
+
+</html>

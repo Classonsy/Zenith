@@ -3,375 +3,190 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ZenithPay | Login</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithPay | P2P & Crypto Wallet</title>
+    <!-- Fonts: Outfit (Main) + Syncopate (Display/Tech) -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Syncopate:wght@400;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="grid.css">
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="wallet.css">
-
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            height: 100vh;
-            background: #000;
-            overflow: hidden;
-            padding: 2rem 0;
-            box-sizing: border-box;
-        }
-
-        .login-header {
-            text-align: center;
-            margin-top: 2rem;
-            opacity: 0;
-            animation: fadeInDown 0.8s forwards;
-        }
-
-        .brand-logo {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 2.5rem;
-            color: white;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .welcome-text {
-            color: #666;
-            font-size: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .user-view {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .avatar-glow {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            padding: 3px;
-            background: linear-gradient(135deg, var(--accent-ruby), #ff5252);
-            box-shadow: 0 0 30px rgba(224, 17, 95, 0.4);
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .avatar-glow img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #111;
-            border: 3px solid #000;
-        }
-
-        .avatar-glow::after {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border-radius: 50%;
-            border: 1px solid rgba(224, 17, 95, 0.1);
-            animation: pulse 2s infinite;
-        }
-
-        .pin-area {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .pin-dots {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .dot.filled {
-            background: var(--accent-ruby);
-            transform: scale(1.2);
-            box-shadow: 0 0 15px var(--accent-ruby);
-        }
-
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem 2.5rem;
-        }
-
-        .key {
-            width: 75px;
-            height: 75px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.03);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: white;
-            cursor: pointer;
-            transition: 0.2s;
-            backdrop-filter: blur(5px);
-            font-weight: 300;
-        }
-
-        .key:active {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(0.9);
-        }
-
-        .action-key {
-            background: transparent;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .action-key i {
-            color: var(--accent-ruby);
-        }
-
-        .forgot-btn {
-            margin-top: 2rem;
-            background: transparent;
-            border: none;
-            color: #666;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: scale(1.2);
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
 </head>
 
 <body>
 
-    <div class="login-header" id="headerContent">
-        <div class="brand-logo">Zenith</div>
-        <div class="welcome-text">Enter Passcode</div>
-    </div>
+    <!-- Ambient Background Effects -->
+    <div class="ambient-glow"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="noise"></div>
+    <div class="cursor" id="cursor"></div>
 
-    <div class="pin-area">
-        <div class="pin-dots">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="brand">Zenith<span>Pay</span></div>
+        <ul class="nav-links">
+            <li><a href="#features" data-i18n="nav_features">Features</a></li>
+            <li><a href="#wallet" data-i18n="nav_wallet">Wallet</a></li>
+            <li><a href="#exchange" data-i18n="nav_exchange">Exchange</a></li>
+            <li><a href="connect.html" data-i18n="nav_business">Business</a></li>
+        </ul>
 
-        <div class="keypad">
-            <div class="key" onclick="kp(1)">1</div>
-            <div class="key" onclick="kp(2)">2</div>
-            <div class="key" onclick="kp(3)">3</div>
-            <div class="key" onclick="kp(4)">4</div>
-            <div class="key" onclick="kp(5)">5</div>
-            <div class="key" onclick="kp(6)">6</div>
-            <div class="key" onclick="kp(7)">7</div>
-            <div class="key" onclick="kp(8)">8</div>
-            <div class="key" onclick="kp(9)">9</div>
-            <div class="key action-key" onclick="handleBiometric()">
-                <i class="fas fa-fingerprint" id="bioIcon"></i>
+        <button class="lang-trigger">
+            <i class="fas fa-globe"></i> <span>RU</span>
+        </button>
+
+        <button class="btn-login" data-i18n="nav_login">Connect Wallet</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="grid-bg"></div>
+        <div class="grid-bg-glow"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span data-i18n="hero_title_1" style="display: block;">P2P Exchange &</span>
+                    <span class="highlight" data-i18n="hero_title_2">Crypto Wallet</span>
+                </h1>
+                <p class="hero-subtitle" data-i18n="hero_subtitle">
+                    Seamlessly exchange USDT, GEL, and RUB with minimal fees.
+                    The definitive crypto wallet and exchange platform for the modern economy.
+                </p>
+                <div class="cta-group">
+                    <button class="btn-primary" data-i18n="btn_get_app">Get App</button>
+                    <!-- New Connect Business Button -->
+                    <a href="connect.html" class="btn-secondary" data-i18n="btn_connect_biz">Connect Business</a>
+                </div>
             </div>
-            <div class="key" onclick="kp(0)">0</div>
-            <div class="key action-key" onclick="kp('del')">
-                <i class="fas fa-backspace" style="color: #fff;"></i>
-            </div>
-        </div>
 
-        <button class="forgot-btn">Forgot Passcode?</button>
-    </div>
-
-    <script>
-        // --- LOGIC ---
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.enableClosingConfirmation();
-
-        let pin = "";
-
-        // Initial Data Load
-        function loadUser() {
-            if (tg.initDataUnsafe?.user) {
-                const u = tg.initDataUnsafe.user;
-                const name = u.first_name;
-                const photo = u.photo_url;
-
-                // Replace Header with User Profile
-                const header = document.getElementById('headerContent');
-                header.innerHTML = `
-                    <div class="user-view">
-                        <div class="avatar-glow">
-                            <img src="${photo || `https://ui-avatars.com/api/?name=${name[0]}&background=e0115f&color=fff`}" alt="User">
-                        </div>
-                        <h2 style="color: white; font-weight: 500; font-size: 1.5rem;">Hello, ${name}</h2>
-                        <p class="welcome-text">Enter Passcode to unlock</p>
+            <!-- Interactive Exchange Widget acting as Hero Image -->
+            <div class="hero-visual">
+                <div class="exchange-card" id="exchange-widget">
+                    <div class="card-header">
+                        <span class="card-title" data-i18n="widget_title">Quick Exchange</span>
+                        <i class="fas fa-history" style="color: var(--text-muted); cursor: pointer;"></i>
                     </div>
-                `;
 
-                // Store
-                localStorage.setItem('tg_user', JSON.stringify(u));
-            }
-        }
+                    <!-- Input Currency -->
+                    <div class="exchange-input-group">
+                        <div class="input-row">
+                            <label class="input-label" data-i18n="label_send">You Send</label>
+                            <div class="input-balance">
+                                <span style="font-size: 0.7rem; color: var(--accent-ruby);">Max: 10,000</span>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <input type="number" id="input-amount" class="amount-input" value="1000" placeholder="0.00">
+                            <select id="input-currency" class="currency-select">
+                                <option value="USDT">USDT</option>
+                                <option value="GEL">GEL</option>
+                                <option value="RUB">RUB</option>
+                            </select>
+                        </div>
+                    </div>
 
-        function kp(val) {
-            if (val === 'del') {
-                pin = pin.slice(0, -1);
-            } else if (pin.length < 4) {
-                pin += val;
-            }
-            updateUI();
+                    <!-- Swap Button -->
+                    <button class="swap-btn" id="swap-btn">
+                        <i class="fas fa-arrow-down-up"></i>
+                    </button>
 
-            if (pin.length === 4) {
-                setTimeout(validate, 200);
-            }
-        }
+                    <!-- Output Currency -->
+                    <div class="exchange-input-group">
+                        <div class="input-row">
+                            <label class="input-label" data-i18n="label_receive">You Receive</label>
+                            <div class="input-balance">
+                                <span style="font-size: 0.7rem; color: #4caf50;">Rate: ±0.1%</span>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <input type="text" id="output-amount" class="amount-input" readonly placeholder="0.00">
+                            <select id="output-currency" class="currency-select">
+                                <option value="GEL">GEL</option>
+                                <option value="RUB">RUB</option>
+                                <option value="USDT" selected>USDT</option>
+                            </select>
+                        </div>
+                    </div>
 
-        function updateUI() {
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((d, i) => {
-                if (i < pin.length) d.classList.add('filled');
-                else d.classList.remove('filled');
-            });
-        }
+                    <button class="exchange-btn" id="exchange-btn" data-i18n="btn_swap">Swap Now</button>
 
-        function validate() {
-            // ACCEPT ANY PIN for demo purposes
-            if (pin.length === 4) {
-                success();
-            } else {
-                error();
-            }
-        }
+                    <div style="text-align: center; margin-top: 1rem; font-size: 0.7rem; opacity: 0.5;">
+                        <i class="fas fa-shield-alt"></i> <span data-i18n="label_secured">Secured by ZenithChain</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        function success() {
-            document.querySelectorAll('.dot').forEach(d => d.style.background = '#00e676');
-            if (window.Telegram.WebApp.HapticFeedback) {
-                window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
-            }
-            setTimeout(() => location.href = 'wallet.html', 400);
-        }
+    <!-- Features Grid -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2 class="section-title" data-i18n="feat_title">Ecosystem</h2>
+            <p style="color: var(--text-muted);" data-i18n="feat_subtitle">More than just an exchange.</p>
+        </div>
 
-        function error() {
-            if (window.Telegram.WebApp.HapticFeedback) {
-                window.Telegram.WebApp.HapticFeedback.notificationOccurred('error');
-            }
-            const dots = document.querySelector('.pin-dots');
-            dots.animate([
-                { transform: 'translateX(0)' },
-                { transform: 'translateX(-10px)' },
-                { transform: 'translateX(10px)' },
-                { transform: 'translateX(0)' }
-            ], { duration: 300 });
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-wallet feature-icon"></i>
+                <h3 class="feature-title" data-i18n="card_wallet_title">Multi-Currency Wallet</h3>
+                <p class="feature-desc" data-i18n="card_wallet_desc">Store USDT, GEL, and RUB securely. Non-custodial
+                    options available for maximum
+                    control over your assets.</p>
+            </div>
 
-            setTimeout(() => {
-                pin = "";
-                updateUI();
-                document.querySelectorAll('.dot').forEach(d => d.style.background = '');
-            }, 300);
-        }
+            <div class="feature-card">
+                <i class="fas fa-sync-alt feature-icon"></i>
+                <h3 class="feature-title" data-i18n="card_p2p_title">Instant P2P</h3>
+                <p class="feature-desc" data-i18n="card_p2p_desc">Direct peer-to-peer transfers with zero hidden fees.
+                    Escrow protection
+                    guarantees safe transactions every time.</p>
+            </div>
 
-        // --- BIOMETRICS ---
-        function handleBiometric() {
-            const bioManager = tg.BiometricManager;
+            <div class="feature-card">
+                <i class="fas fa-shield-virus feature-icon"></i>
+                <h3 class="feature-title" data-i18n="card_sec_title">Bank-Grade Security</h3>
+                <p class="feature-desc" data-i18n="card_sec_desc">AES-256 encryption, biometric login support, and 24/7
+                    fraud monitoring systems.
+                </p>
+            </div>
+        </div>
+    </section>
 
-            if (bioManager && bioManager.isInited) {
-                if (!bioManager.isBiometricAvailable) {
-                    alert("Biometrics not available on this device.");
-                    return;
-                }
+    <!-- Footer -->
+    <footer>
+        <div class="brand" style="font-size: 1rem;">Zenith<span>Pay</span></div>
+        <div class="footer-text" data-i18n="footer_rights">© 2024 ZenithPay. All rights reserved.</div>
+        <div class="socials">
+            <a href="#" style="margin-left: 1rem; opacity: 0.5;"><i class="fab fa-telegram"></i></a>
+            <a href="#" style="margin-left: 1rem; opacity: 0.5;"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
 
-                // Request Access first time
-                if (!bioManager.isAccessGranted) {
-                    bioManager.requestAccess({ reason: 'Login to ZenithPay' }, (granted) => {
-                        if (granted) scan();
-                    });
-                } else {
-                    scan();
-                }
 
-                function scan() {
-                    bioManager.authenticate({ reason: 'Confirm Identity' }, (success) => {
-                        if (success) {
-                            // Redirect to wallet
-                            location.href = 'wallet.html';
-                        }
-                    });
-                }
-            } else {
-                // Fallback Simulation for Browser Testing
-                simulateBio();
-            }
-        }
 
-        function simulateBio() {
-            const icon = document.getElementById('bioIcon');
-            icon.className = 'fas fa-spinner fa-spin';
-            icon.style.color = 'white';
+    <script src="lang.js"></script>
+    <script src="script.js"></script>
+    <!-- Simple script for swap icon since we want a specific behavior -->
+    <script>
+        const swapButton = document.querySelector('.swap-btn');
+        const icon = swapButton.querySelector('i');
 
-            setTimeout(() => {
-                icon.className = 'fas fa-check';
-                icon.style.color = '#00e676';
-                if (window.Telegram.WebApp.HapticFeedback) {
-                    window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
-                }
-                setTimeout(() => location.href = 'wallet.html', 500);
-            }, 1000);
-        }
+        swapButton.addEventListener('mouseenter', () => {
+            icon.classList.remove('fa-arrow-down-up');
+            icon.classList.add('fa-retweet');
+        });
+        swapButton.addEventListener('mouseleave', () => {
+            icon.classList.remove('fa-retweet');
+            icon.classList.add('fa-arrow-down-up');
+        });
 
-        // Initialize
-        loadUser();
-
-        // Init Biometrics if in TG
-        if (tg.BiometricManager) {
-            tg.BiometricManager.init(() => {
-                // Auto-prompt if access already granted?
-                // if (tg.BiometricManager.isAccessGranted) handleBiometric();
-            });
-        }
+        // Initial Exchange calculation to ensure values are populated
+        const input = document.getElementById('input-amount');
+        const event = new Event('input');
+        input.dispatchEvent(event);
     </script>
 </body>
 

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithPay | Pay</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="grid.css">
+
+    <style>
+        /* Mobile-First Base styles override for Payment Page */
+        body {
+            background: white !important;
+            color: #121212 !important;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .ambient-glow,
+        .orb,
+        .noise,
+        .grid-bg,
+        .grid-bg-glow {
+            display: none !important;
+            /* Force remove background effects */
+        }
+
+        .payment-container {
+            width: 100%;
+            max-width: 480px;
+            /* Mobile width constraint */
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Responsive Ratios Container */
+        .ratio-wrapper {
+            width: 100%;
+            background: #fff;
+            position: relative;
+        }
+
+        /* 16:9 and 21:9 Handling via max-width/padding adjustments if containerized, 
+           but user asked for "page formats 21:9 and 16:9". 
+           Since it's a web page, it naturally reflows. 
+           We will ensure the content looks good centered on wide screens (21:9) and standard (16:9).
+        */
+
+        .brand-logo {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2rem;
+            color: #000;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .brand-logo span {
+            color: var(--accent-ruby, #e0115f);
+        }
+
+        .pay-card {
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .merchant-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .merchant-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 0.2rem;
+        }
+
+        .merchant-id {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .amount-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .amount-sub {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .qr-section {
+            background: white;
+            padding: 1rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .qr-section img {
+            width: 180px;
+            height: 180px;
+            display: block;
+        }
+
+        .btn-pay-wallet {
+            background: linear-gradient(135deg, #000, #222);
+            color: white;
+            width: 100%;
+            padding: 1.2rem;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            transition: 0.2s;
+            margin-bottom: 1rem;
+        }
+
+        .btn-pay-wallet:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #444;
+            border: 1px solid #ddd;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f0f0;
+            color: #000;
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        /* Payment Options Grid */
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .pay-option {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .pay-option:hover,
+        .pay-option.active {
+            border-color: #000;
+            background: #fcfcfc;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .pay-option img {
+            height: 28px;
+            width: 28px;
+            object-fit: contain;
+        }
+
+        .pay-option span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive tweaks for wider screens */
+        @media (min-width: 768px) {
+            .payment-container {
+                max-width: 600px;
+            }
+
+            .brand-logo {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Details Section (Hidden by default) */
+        .details-info {
+            background: #f1f2f4;
+            padding: 1rem;
+            border-radius: 12px;
+            width: 100%;
+            margin-bottom: 2rem;
+            text-align: left;
+            display: none;
+            /* Toggled via JS */
+            animation: fadeIn 0.3s ease;
+        }
+
+        .details-info.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 0.95rem;
+            color: #222;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copy-btn {
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #666;
+            transition: 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="payment-container">
+        <div class="brand-logo">Zenith<span>Pay</span></div>
+
+        <div class="pay-card">
+            <div class="merchant-avatar">
+                <i class="fas fa-coffee"></i>
+            </div>
+            <h2 class="merchant-name">Starbucks Coffee</h2>
+            <p class="merchant-id">Merchant ID: #882910</p>
+
+            <div class="amount-display">$5.20</div>
+            <p class="amount-sub">≈ 4.80 EUR</p>
+
+            <!-- Payment Methods -->
+            <div class="payment-methods-grid">
+                <div class="pay-option active" onclick="selectMethod('gel', this)">
+                    <img src="https://flagcdn.com/w40/ge.png" alt="GEL">
+                    <span>GEL</span>
+                </div>
+                <div class="pay-option" onclick="selectMethod('ton', this)">
+                    <img src="https://cryptologos.cc/logos/toncoin-ton-logo.png" alt="TON">
+                    <span>TON</span>
+                </div>
+                <div class="pay-option" onclick="selectMethod('usdt', this)">
+                    <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT">
+                    <span>USDT</span>
+                </div>
+                <div class="pay-option" onclick="selectMethod('rub', this)">
+                    <img src="https://flagcdn.com/w40/ru.png" alt="RUB">
+                    <span>RUB (SBP)</span>
+                </div>
+            </div>
+
+            <!-- QR Code Section -->
+            <div class="qr-section">
+                <!-- Placeholder QR -->
+                <img id="qrImage"
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=zenithpay://pay?currency=GEL&amount=14.50"
+                    alt="Payment QR">
+                <div style="margin-top: 1rem; font-size: 0.9rem; font-weight: 500;" id="payAmountLabel">14.50 GEL</div>
+            </div>
+
+            <!-- Details Section (Dynamic) -->
+            <!-- GEL: Merchant Info -->
+            <div id="details-gel" class="details-info active">
+                <div class="info-row">
+                    <span class="info-label">Store Name</span>
+                    <span class="info-value">Starbucks Coffee <button class="copy-btn"><i
+                                class="fas fa-copy"></i></button></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Merchant ID</span>
+                    <span class="info-value">#882910 <button class="copy-btn"><i
+                                class="fas fa-copy"></i></button></span>
+                </div>
+            </div>
+
+            <!-- TON: Wallet Address -->
+            <div id="details-ton" class="details-info">
+                <div class="info-row">
+                    <span class="info-label">TON Address</span>
+                </div>
+                <div class="info-row" style="background: white; padding: 0.5rem; border-radius: 8px;">
+                    <span class="info-value" style="font-size: 0.8rem; word-break: break-all;">UQd...k9L <button
+                            class="copy-btn"><i class="fas fa-copy"></i></button></span>
+                </div>
+                <div class="info-row" style="margin-top: 0.5rem;">
+                    <span class="info-label">Memo (Comment)</span>
+                    <span class="info-value">882910</span>
+                </div>
+            </div>
+
+            <!-- USDT: TRC20 Address -->
+            <div id="details-usdt" class="details-info">
+                <div class="info-row">
+                    <span class="info-label">USDT (TRC20) Address</span>
+                </div>
+                <div class="info-row" style="background: white; padding: 0.5rem; border-radius: 8px;">
+                    <span class="info-value" style="font-size: 0.8rem; word-break: break-all;">Tk9...j8A <button
+                            class="copy-btn"><i class="fas fa-copy"></i></button></span>
+                </div>
+            </div>
+
+            <!-- RUB: SBP Layout -->
+            <div id="details-rub" class="details-info">
+                <div class="info-row">
+                    <span class="info-label">Phone Number</span>
+                    <span class="info-value">+7 (999) 123-45-67 <button class="copy-btn"><i
+                                class="fas fa-copy"></i></button></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Bank</span>
+                    <span class="info-value">T-Bank (Tinkoff)</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Recipient</span>
+                    <span class="info-value">Vasik Z.</span>
+                </div>
+            </div>
+
+            <button class="btn-pay-wallet" onclick="window.location.href='wallet/index.html'">
+                <i class="fas fa-wallet"></i> Pay with ZenithWallet
+            </button>
+
+            <!-- Bank App Button (GEL - Hidden by default) -->
+            <button id="bank-app-btn" class="btn-secondary"
+                style="background: #0033a1; color: white; border: none; display: none; margin-bottom: 1rem;">
+                <i class="fas fa-university"></i> Open Bank App
+            </button>
+
+            <button class="btn-secondary">
+                <i class="fas fa-credit-card"></i> Pay with Card
+            </button>
+        </div>
+
+        <p class="footer-note">Secured by ZenithTech Encryption</p>
+    </div>
+
+    <script>
+        const methods = {
+            'gel': {
+                amount: '14.50 GEL',
+                qr: null,
+                hasQR: false,
+                bankLink: 'https://bog.ge' // Deep link mock
+            },
+            'ton': {
+                amount: '2.5 TON',
+                qr: 'zenithpay://pay?currency=TON&amount=2.5',
+                hasQR: true
+            },
+            'usdt': {
+                amount: '5.20 USDT',
+                qr: 'zenithpay://pay?currency=USDT&amount=5.20',
+                hasQR: true
+            },
+            'rub': {
+                amount: '500 RUB',
+                qr: null,
+                hasQR: false
+            }
+        };
+
+        function selectMethod(method, element) {
+            // Visual Update
+            document.querySelectorAll('.pay-option').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            // Data Update
+            const data = methods[method];
+            if (data) {
+                document.getElementById('payAmountLabel').textContent = data.amount;
+
+                // QR Logic
+                const qrSection = document.querySelector('.qr-section');
+                if (data.hasQR) {
+                    qrSection.style.display = 'block';
+                    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.qr)}`;
+                    document.getElementById('qrImage').src = qrUrl;
+                } else {
+                    qrSection.style.display = 'none';
+                }
+
+                // Toggle Bank Button (for GEL)
+                const bankBtn = document.getElementById('bank-app-btn');
+                if (method === 'gel') {
+                    bankBtn.style.display = 'flex';
+                    // Center content for button
+                    bankBtn.style.alignItems = 'center';
+                    bankBtn.style.justifyContent = 'center';
+                    bankBtn.style.gap = '0.5rem';
+                } else {
+                    bankBtn.style.display = 'none';
+                }
+
+                // Details Section Toggle
+                document.querySelectorAll('.details-info').forEach(el => el.classList.remove('active'));
+                const detailEl = document.getElementById('details-' + method);
+                if (detailEl) detailEl.classList.add('active');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+/* GRID BACKGROUND & GLOW */
+.hero {
+    position: relative;
+    /* Ensure absolute children are positioned relative to hero */
+}
+
+.grid-bg {
+    position: absolute;
+    /* Changed from fixed to absolute */
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-size: 50px 50px;
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+    /* Fade out at bottom of hero */
+    -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+}
+
+.grid-bg-glow {
+    position: absolute;
+    /* Changed from fixed to absolute */
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-size: 50px 50px;
+    background-image:
+        linear-gradient(to right, var(--accent-ruby) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--accent-ruby) 1px, transparent 1px);
+    opacity: 0;
+    --x: 50%;
+    --y: 50%;
+    mask-image: radial-gradient(circle 250px at var(--x) var(--y), black, transparent);
+    -webkit-mask-image: radial-gradient(circle 250px at var(--x) var(--y), black, transparent);
+    opacity: 0.8;
+}
+
+/* Cursor specifically for Hero Section */
+.hero {
+    cursor: crosshair;
+    /* Only hero has crosshair by default */
+}
+
+/* Reset cursor elsewhere (optional if default is arrow) */
+/* html, body { cursor: default; } - typically default is fine */
+
+/* Restore cursors for interactive elements INSIDE hero specifically if needed, 
+   but global rule covers it. */
+
+/* Ensure hero-content is above grid */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}

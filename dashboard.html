@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithPay | Partner Dashboard</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Syncopate:wght@400;700&family=Noto+Sans+Georgian:wght@300;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Ambient Background -->
+    <div class="ambient-glow"></div>
+    <div class="orb orb-1"></div>
+
+    <div class="dashboard-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-cube" style="color: var(--accent-ruby);"></i>
+                    Zenith<span>Pay</span>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item active" onclick="switchTab('overview')">
+                    <i class="fas fa-home"></i> <span data-i18n="dash_nav_overview">Overview</span>
+                </li>
+                <li class="nav-item" onclick="switchTab('methods')">
+                    <i class="fas fa-credit-card"></i> <span data-i18n="dash_nav_methods">Payment Methods</span>
+                </li>
+                <li class="nav-item" onclick="switchTab('qr')">
+                    <i class="fas fa-qrcode"></i> <span data-i18n="dash_nav_qr">QR Settings</span>
+                </li>
+                <li class="nav-item" onclick="switchTab('history')">
+                    <i class="fas fa-history"></i> <span data-i18n="dash_nav_history">Transactions</span>
+                </li>
+                <li class="nav-item" onclick="switchTab('withdraw')">
+                    <i class="fas fa-wallet"></i> <span data-i18n="dash_nav_withdraw">Withdraw Funds</span>
+                </li>
+                <li class="nav-item" onclick="switchTab('settings')">
+                    <i class="fas fa-cog"></i> <span data-i18n="dash_nav_settings">Settings</span>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <li class="nav-item" style="color: #f44336;">
+                    <i class="fas fa-sign-out-alt"></i> <span data-i18n="dash_nav_logout">Logout</span>
+                </li>
+            </div>
+        </aside>
+
+        <!-- Header -->
+        <header class="dash-header">
+            <h2 class="page-title" id="page-title">Dashboard</h2>
+
+            <div class="header-actions">
+                <!-- Language Trigger (Reusing new component) -->
+                <button class="lang-trigger">
+                    <i class="fas fa-globe"></i> <span>RU</span>
+                </button>
+
+                <div class="user-profile">
+                    <div class="text-right" style="text-align: right;">
+                        <div style="font-weight: 600; font-size: 0.9rem;">Alex Company</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">ID: 849201</div>
+                    </div>
+                    <div class="avatar">A</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- OVERVIEW SECTION -->
+            <section id="overview" class="dashboard-section active">
+                <div class="stats-grid">
+                    <div class="dash-card">
+                        <div class="stat-label" data-i18n="stat_total_bal">Total Balance</div>
+                        <div class="stat-value">$14,250.00</div>
+                        <div class="stat-trend trend-up"><i class="fas fa-arrow-up"></i> +12% this week</div>
+                    </div>
+                    <div class="dash-card">
+                        <div class="stat-label" data-i18n="stat_pending">Pending Payouts</div>
+                        <div class="stat-value">$2,100.00</div>
+                        <div class="stat-trend"><i class="fas fa-clock"></i> Processing</div>
+                    </div>
+                    <div class="dash-card">
+                        <div class="stat-label" data-i18n="stat_active_subs">Active Methods</div>
+                        <div class="stat-value">4 / 6</div>
+                        <div class="stat-trend trend-up">Optimal</div>
+                    </div>
+                </div>
+
+                <div class="dash-card">
+                    <h3 style="margin-bottom: 1.5rem;" data-i18n="lbl_recent_tx">Recent Transactions</h3>
+                    <div class="table-container" style="padding: 0; border: none; background: transparent;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th data-i18n="th_id">ID</th>
+                                    <th data-i18n="th_date">Date</th>
+                                    <th data-i18n="th_desc">Description</th>
+                                    <th data-i18n="th_amount">Amount</th>
+                                    <th data-i18n="th_status">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#TX-9921</td>
+                                    <td>Oct 24, 14:30</td>
+                                    <td>Payment from Client via Card</td>
+                                    <td style="color: #4caf50;">+$150.00</td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#TX-9920</td>
+                                    <td>Oct 24, 12:15</td>
+                                    <td>Payment via Crypto (USDT)</td>
+                                    <td style="color: #4caf50;">+$540.00</td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#WD-8422</td>
+                                    <td>Oct 23, 09:00</td>
+                                    <td>Withdrawal to Bank</td>
+                                    <td style="color: var(--text-main);">-$2,500.00</td>
+                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- METHODS SECTION -->
+            <section id="methods" class="dashboard-section">
+                <h3 style="margin-bottom: 2rem;" data-i18n="sect_pay_methods">Configure Payment Methods</h3>
+
+                <div class="stats-grid methods-grid-dash">
+
+                    <!-- E-Wallets -->
+                    <div class="dash-card method-group">
+                        <h4 class="method-group-title"><i class="fas fa-wallet"></i> <span
+                                data-i18n="cat_wallets">E-Wallets</span></h4>
+
+                        <div class="method-item">
+                            <div class="method-info">
+                                <div class="method-name">ZenithWallet</div>
+                                <div class="method-fee">2% Fee</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="method-item">
+                            <div class="method-info">
+                                <div class="method-name">YooMoney</div>
+                                <div class="method-fee">5% Fee</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Online Banking -->
+                    <div class="dash-card method-group">
+                        <h4 class="method-group-title"><i class="fas fa-university"></i> <span
+                                data-i18n="cat_banking">Online Banking</span></h4>
+
+                        <div class="method-item">
+                            <div class="method-info">
+                                <div class="method-name" data-i18n="method_geo">TBC / BoG / Credo</div>
+                                <div class="method-fee">1.8% Fee</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="method-item">
+                            <div class="method-info">
+                                <div class="method-name">SBP (СБП)</div>
+                                <div class="method-fee">3% Fee</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="method-item">
+                            <div class="method-info">
+                                <div class="method-name">SberPay</div>
+                                <div class="method-fee">3% Fee</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Crypto -->
+                    <div class="dash-card method-group">
+                        <h4 class="method-group-title"><i class="fab fa-bitcoin"></i> <span
+                                data-i18n="cat_crypto">Cryptocurrency</span></h4>
+
+                        <div class="method-item">
+                            <div class="method-info">
+                                <div class="method-name">USDT (TRC20/ERC20)</div>
+                                <div class="method-fee">0.9% Fee</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="method-item">
+                            <div class="method-info">
+                                <div class="method-name">TON</div>
+                                <div class="method-fee">0.5% Fee</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- QR SETTINGS SECTION -->
+            <section id="qr" class="dashboard-section">
+                <div class="dash-card" style="max-width: 800px; margin: 0 auto;">
+                    <h3 style="text-align: center; margin-bottom: 2rem;" data-i18n="sect_qr_settings">QR Payment
+                        Configuration</h3>
+
+                    <div class="qr-layout">
+                        <div class="qr-preview">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ZenithPayDemo"
+                                alt="QR Code" style="border-radius: 10px;">
+                            <div style="color: black; font-weight: 700; margin-top: 1rem;">ZENITHPAY</div>
+                        </div>
+
+                        <div class="qr-options">
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="lbl_qr_amount">Fixed Amount (Optional)</label>
+                                <input type="number" class="form-input" placeholder="0.00">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="lbl_qr_currency">Currency</label>
+                                <select class="form-select">
+                                    <option>USD</option>
+                                    <option>GEL</option>
+                                </select>
+                                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">* Payments
+                                    are processed via your attached wallets.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" data-i18n="lbl_qr_desc">Description</label>
+                                <input type="text" class="form-input" placeholder="Payment for Order #...">
+                            </div>
+
+                            <button class="btn-primary" style="width: 100%;" data-i18n="btn_update_qr">Update QR
+                                Code</button>
+                            <button class="btn-secondary" style="width: 100%; margin-top: 1rem;"
+                                data-i18n="btn_download_qr">Download PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WITHDRAW SECTION -->
+            <section id="withdraw" class="dashboard-section">
+                <div class="dash-card" style="max-width: 600px; margin: 0 auto;">
+                    <h3 style="margin-bottom: 2rem;" data-i18n="sect_withdraw">Withdraw Funds</h3>
+
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="lbl_withdraw_amount">Amount to Withdraw</label>
+                        <div style="position: relative;">
+                            <span
+                                style="position: absolute; left: 1rem; top: 0.8rem; color: var(--text-muted);">$</span>
+                            <input type="number" class="form-input" style="padding-left: 2.5rem;" placeholder="0.00">
+                        </div>
+                        <div
+                            style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                            Available: $14,250.00</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="lbl_withdraw_method">Withdrawal Method</label>
+                        <select class="form-select">
+                            <option>Bank Transfer (**** 4921)</option>
+                            <option>Crypto Wallet (TRC20 ...x9dA)</option>
+                            <option>Add New Method...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="lbl_2fa">2FA Code</label>
+                        <input type="text" class="form-input" placeholder="Enter code from Authenticator">
+                    </div>
+
+                    <button class="btn-primary" style="width: 100%;" data-i18n="btn_process_withdraw">Process
+                        Withdrawal</button>
+                </div>
+            </section>
+
+            <!-- HISTORY / SETTINGS PLACEHOLDERS -->
+            <section id="history" class="dashboard-section">
+                <div class="dash-card">
+                    <h3>Full Transaction History</h3>
+                    <p style="color: var(--text-muted);">Detailed logs will appear here...</p>
+                    <!-- Reuse table structure later -->
+                </div>
+            </section>
+
+            <section id="settings" class="dashboard-section">
+                <h3 style="margin-bottom: 2rem;">Account Settings & Compliance</h3>
+
+                <div class="stats-grid">
+                    <div class="dash-card">
+                        <h4>Company Profile</h4>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label class="form-label">Business Name</label>
+                            <input type="text" class="form-input" value="Alex Company Ltd">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Registration Number</label>
+                            <input type="text" class="form-input" value="849201992">
+                        </div>
+                        <button class="btn-secondary">Update Profile</button>
+                    </div>
+
+                    <div class="dash-card">
+                        <h4>Payout Details</h4>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label class="form-label">Default Bank Account (IBAN)</label>
+                            <input type="text" class="form-input" value="GE92TB39949211000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Crypto Wallet (USDT TRC20)</label>
+                            <input type="text" class="form-input" value="TEq9...j921">
+                        </div>
+                        <button class="btn-secondary">Save Details</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="lang.js"></script>
+    <script>
+        // Simple Tab Switcher Logic
+        function switchTab(tabId) {
+            // Remove active class from all sections
+            document.querySelectorAll('.dashboard-section').forEach(sec => sec.classList.remove('active'));
+            // Remove active class from nav items
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+
+            // Activate target
+            document.getElementById(tabId).classList.add('active');
+
+            // Find nav item by onclick matching (simple heuristic)
+            // Ideally we add IDs to nav items, but this works for demo
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                if (item.getAttribute('onclick').includes(tabId)) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Update Header Title (Optional)
+            // const titleMap = { 'overview': 'Overview', 'methods': 'Payment Methods', ... }
+        }
+    </script>
+</body>
+
+</html>
