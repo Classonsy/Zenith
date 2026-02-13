@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithPay | Menu</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="wallet.css">
+</head>
+
+<body>
+
+    <div class="wallet-container">
+        <!-- Header -->
+        <header class="wallet-header">
+            <div class="brand" style="font-size: 1.5rem; font-family: 'Syncopate', sans-serif;" data-i18n="nav_menu">
+                MENU</div>
+            <div class="user-avatar" onclick="window.location.href='profile.html'" style="cursor: pointer;">V</div>
+        </header>
+
+        <!-- Menu Grid -->
+        <div class="menu-grid">
+            <!-- Staking -->
+            <div class="menu-card" onclick="window.location.href='staking.html'">
+                <div class="menu-icon" style="background: rgba(255, 179, 0, 0.1); color: #ffb300;">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h3 data-i18n="menu_staking">Staking</h3>
+                <p data-i18n="menu_staking_desc">Earn up to 12% APY</p>
+            </div>
+
+            <!-- Trading -->
+            <div class="menu-card" onclick="window.location.href='trading.html'">
+                <div class="menu-icon" style="background: rgba(0, 230, 118, 0.1); color: #00e676;">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 data-i18n="menu_trading">Trading</h3>
+                <p data-i18n="menu_trading_desc">Swap & Trade Crypto</p>
+            </div>
+
+            <!-- Cards -->
+            <div class="menu-card" onclick="window.location.href='#'">
+                <div class="menu-icon" style="background: rgba(41, 121, 255, 0.1); color: #2979ff;">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <h3 data-i18n="menu_cards">Cards</h3>
+                <p data-i18n="menu_cards_desc">Manage Virtual Cards</p>
+            </div>
+
+            <!-- Steam Top Up -->
+            <div class="menu-card steam" onclick="window.location.href='#'">
+                <div class="menu-icon">
+                    <i class="fab fa-steam"></i>
+                </div>
+                <h3 data-i18n="menu_steam">Steam Top Up</h3>
+                <p data-i18n="menu_steam_desc">0% Commission</p>
+            </div>
+
+            <!-- Mobile Top Up -->
+            <div class="menu-card mobile" onclick="window.location.href='#'">
+                <div class="menu-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 data-i18n="menu_mobile">Mobile Top Up</h3>
+                <p data-i18n="menu_mobile_desc">Instant Refill</p>
+            </div>
+
+            <!-- News -->
+            <div class="menu-card" onclick="window.location.href='#'">
+                <div class="menu-icon" style="background: rgba(156, 39, 176, 0.1); color: #9c27b0;">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <h3 data-i18n="menu_news">News</h3>
+                <p data-i18n="menu_news_desc">Latest Crypto Updates</p>
+            </div>
+
+            <!-- History -->
+            <div class="menu-card" onclick="window.location.href='history.html'">
+                <div class="menu-icon" style="background: rgba(144, 202, 249, 0.1); color: #90caf9;">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3 data-i18n="menu_history">History</h3>
+                <p data-i18n="menu_history_desc">View All Transactions</p>
+            </div>
+
+            <div class="menu-card" onclick="window.location.href='#'">
+                <div class="menu-icon" style="background: rgba(255, 255, 255, 0.05); color: #aaa;">
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <h3 data-i18n="menu_more">More</h3>
+                <p data-i18n="menu_more_desc">Coming Soon</p>
+            </div>
+        </div>
+
+        <!-- Promo Banner -->
+        <div class="referral-card" style="margin-top: 2rem;">
+            <div class="ref-icon">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <div class="ref-info">
+                <h4>Zenith Premium</h4>
+                <p>Upgrade to lower fees & more limits.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Floating Navbar -->
+    <nav class="floating-nav">
+        <button class="nav-btn" onclick="window.location.href='wallet.html'">
+            <i class="fas fa-home"></i>
+            <span class="nav-label" data-i18n="nav_home">Home</span>
+        </button>
+        <button class="nav-btn active">
+            <i class="fas fa-th-large"></i>
+            <span class="nav-label" data-i18n="nav_menu">Menu</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='profile.html'">
+            <i class="fas fa-user"></i>
+            <span class="nav-label" data-i18n="nav_profile">Profile</span>
+        </button>
+    </nav>
+
+    <script src="translations.js"></script>
+    <script>
+        // Navbar interaction script (visual only since we navigate)
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                if (this.classList.contains('active')) return;
+                // Add click effect visual
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

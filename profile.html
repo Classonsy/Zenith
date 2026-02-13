@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithPay | Profile</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="wallet.css">
+</head>
+
+<body>
+
+    <div class="wallet-container">
+        <!-- Header -->
+        <header class="wallet-header">
+            <div class="brand" style="font-size: 1.2rem;">My Profile</div>
+            <div class="user-badge" style="background: rgba(0, 230, 118, 0.1); border-color: rgba(0, 230, 118, 0.2);">
+                <span style="color: #00e676;">Verified</span>
+                <i class="fas fa-check-circle" style="color: #00e676;"></i>
+            </div>
+        </header>
+
+        <div class="profile-header">
+            <div class="profile-avatar">V</div>
+            <h2 style="margin-bottom: 0.2rem;">Vasik Zenith</h2>
+            <p style="color: #888; font-size: 0.9rem;">vasik@zenithpay.io</p>
+        </div>
+
+        <div class="settings-list">
+            <div class="setting-item">
+                <div class="setting-left">
+                    <div class="setting-icon"><i class="fas fa-shield-alt"></i></div>
+                    <span data-i18n="profile_security">Security</span>
+                </div>
+                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-left">
+                    <div class="setting-icon"><i class="fas fa-credit-card"></i></div>
+                    <span data-i18n="profile_payment">Payment Methods</span>
+                </div>
+                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+
+            <div class="setting-item" onclick="openModal('langModal')">
+                <div class="setting-left">
+                    <div class="setting-icon"><i class="fas fa-globe"></i></div>
+                    <span data-i18n="profile_lang">Language</span>
+                </div>
+                <div class="arrow" style="display: flex; gap: 8px; align-items: center;">
+                    <span style="font-size: 0.8rem; color: #888;" id="currentLangLabel">EN</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-left">
+                    <div class="setting-icon"><i class="fas fa-bell"></i></div>
+                    <span data-i18n="profile_notif">Notifications</span>
+                </div>
+                <div class="arrow"><i class="fas fa-toggle-on" style="color: var(--accent-ruby);"></i></div>
+            </div>
+
+            <div class="setting-item">
+                <div class="setting-left">
+                    <div class="setting-icon"><i class="fas fa-headset"></i></div>
+                    <span data-i18n="profile_support">Support</span>
+                </div>
+                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            </div>
+        </div>
+
+        <button class="btn-logout">
+            <i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">Log Out</span>
+        </button>
+
+    </div>
+
+    <!-- Language Modal -->
+    <div id="langModal" class="wallet-modal">
+        <div class="modal-handle"></div>
+        <h3 class="modal-title" data-i18n="profile_lang">Language</h3>
+
+        <div class="lang-options">
+            <div class="lang-option" onclick="selectLanguage('en')">
+                <span class="lang-flag">🇺🇸</span>
+                <span class="lang-name">English</span>
+            </div>
+            <div class="lang-option" onclick="selectLanguage('ru')">
+                <span class="lang-flag">🇷🇺</span>
+                <span class="lang-name">Русский</span>
+            </div>
+            <div class="lang-option" onclick="selectLanguage('ka')">
+                <span class="lang-flag">🇬🇪</span>
+                <span class="lang-name">ქართული</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Navbar -->
+    <nav class="floating-nav">
+        <button class="nav-btn" onclick="window.location.href='wallet.html'">
+            <i class="fas fa-home"></i>
+            <span class="nav-label" data-i18n="nav_home">Home</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='menu.html'">
+            <i class="fas fa-th-large"></i>
+            <span class="nav-label" data-i18n="nav_menu">Menu</span>
+        </button>
+        <button class="nav-btn active">
+            <i class="fas fa-user"></i>
+            <span class="nav-label" data-i18n="nav_profile">Profile</span>
+        </button>
+    </nav>
+
+    <script src="translations.js"></script>
+    <script>
+        function openModal(id) {
+            // Check if overlay exists using the one from index page style
+            // We need to add one if it doesn't exist or re-use existing logic
+            let overlay = document.querySelector('.modal-overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.className = 'modal-overlay';
+                overlay.onclick = closeModals;
+                document.body.appendChild(overlay);
+                // Force reflow
+                void overlay.offsetWidth;
+            }
+            overlay.classList.add('active');
+            document.getElementById(id).classList.add('active');
+            document.querySelector('.floating-nav').classList.add('hidden');
+        }
+
+        function closeModals() {
+            const overlay = document.querySelector('.modal-overlay');
+            if (overlay) overlay.classList.remove('active');
+            document.querySelectorAll('.wallet-modal').forEach(m => m.classList.remove('active'));
+            document.querySelector('.floating-nav').classList.remove('hidden');
+        }
+
+        function selectLanguage(lang) {
+            changeLanguage(lang);
+            document.getElementById('currentLangLabel').innerText = lang.toUpperCase();
+            closeModals();
+        }
+        // Navbar interaction script
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                if (this.classList.contains('active')) return;
+                // Add click effect visual
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

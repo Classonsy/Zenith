@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithPay | Trading</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="wallet.css">
+</head>
+
+<body>
+
+    <div class="wallet-container">
+        <!-- Header -->
+        <header class="wallet-header">
+            <button class="icon-btn" onclick="window.location.href='menu.html'">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="brand" style="font-size: 1.2rem; margin-left: auto; margin-right: auto;"
+                data-i18n="menu_trading">Trading</div>
+            <div style="width: 40px;"></div> <!-- Spacer for centering -->
+        </header>
+
+        <!-- Trading Chart (Visual Placeholder) -->
+        <div class="chart-container"
+            style="background: #1a1a1a; padding: 1rem; border-radius: 20px; margin-bottom: 1.5rem; position: relative; overflow: hidden;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: white;">BTC/USDT</div>
+                    <div style="color: #00e676; font-size: 0.9rem;">+2.45%</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 1.2rem; font-weight: 600; color: white;">$48,250.00</div>
+                </div>
+            </div>
+            <!-- Simple SVG Chart -->
+            <svg viewBox="0 0 300 100"
+                style="width: 100%; height: 100px; stroke: #00e676; fill: none; stroke-width: 2;">
+                <path
+                    d="M0,80 C20,80 40,60 60,65 C80,70 100,40 120,45 C140,50 160,30 180,35 C200,40 220,10 240,15 C260,20 280,5 300,10" />
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:rgba(0, 230, 118, 0.2);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgba(0, 230, 118, 0);stop-opacity:0" />
+                    </linearGradient>
+                </defs>
+                <path
+                    d="M0,80 C20,80 40,60 60,65 C80,70 100,40 120,45 C140,50 160,30 180,35 C200,40 220,10 240,15 C260,20 280,5 300,10 V100 H0 Z"
+                    style="fill: url(#grad1); stroke: none;" />
+            </svg>
+        </div>
+
+        <!-- Swap Interface -->
+        <div class="swap-card" style="background: #111; padding: 1.5rem; border-radius: 24px; border: 1px solid #222;">
+
+            <!-- From -->
+            <div class="swap-input-group">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="color: #888; font-size: 0.9rem;" data-i18n="pay_label">You Pay</span>
+                    <span style="color: #888; font-size: 0.9rem;">Balance: 2,450.00</span>
+                </div>
+                <div
+                    style="display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 1rem; border-radius: 16px;">
+                    <input type="number" value="100"
+                        style="background: transparent; border: none; color: white; font-size: 1.5rem; width: 60%; outline: none;">
+                    <div
+                        style="display: flex; align-items: center; gap: 0.5rem; background: #222; padding: 0.5rem 1rem; border-radius: 12px; cursor: pointer;">
+                        <img src="Assets/USDT_Logo.png" style="width: 24px; height: 24px;">
+                        <span style="font-weight: 600; color: white;">USDT</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: #888;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swap Icon -->
+            <div style="display: flex; justify-content: center; margin: 1rem 0;">
+                <button
+                    style="background: #222; border: 1px solid #333; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;"
+                    onmouseover="this.style.transform='rotate(180deg)'"
+                    onmouseout="this.style.transform='rotate(0deg)'">
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+
+            <!-- To -->
+            <div class="swap-input-group">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="color: #888; font-size: 0.9rem;" data-i18n="receive_label">You Receive</span>
+                </div>
+                <div
+                    style="display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 1rem; border-radius: 16px;">
+                    <input type="number" value="0.0021" readonly
+                        style="background: transparent; border: none; color: #00e676; font-size: 1.5rem; width: 60%; outline: none;">
+                    <div
+                        style="display: flex; align-items: center; gap: 0.5rem; background: #222; padding: 0.5rem 1rem; border-radius: 12px; cursor: pointer;">
+                        <i class="fab fa-bitcoin" style="font-size: 24px; color: #f7931a;"></i>
+                        <span style="font-weight: 600; color: white;">BTC</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; color: #888;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <button class="btn-primary"
+                style="width: 100%; margin-top: 1.5rem; background: linear-gradient(135deg, #00e676, #00c853); border: none; padding: 1.2rem; border-radius: 16px; color: black; font-weight: 700; font-size: 1.1rem; cursor: pointer;"
+                data-i18n="action_swap">
+                Swap Now
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Floating Navbar -->
+    <nav class="floating-nav">
+        <button class="nav-btn" onclick="window.location.href='wallet.html'">
+            <i class="fas fa-home"></i>
+            <span class="nav-label" data-i18n="nav_home">Home</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='menu.html'"> <!-- Not active here, but accessible -->
+            <i class="fas fa-th-large"></i>
+            <span class="nav-label" data-i18n="nav_menu">Menu</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='profile.html'">
+            <i class="fas fa-user"></i>
+            <span class="nav-label" data-i18n="nav_profile">Profile</span>
+        </button>
+    </nav>
+
+    <script src="translations.js"></script>
+    <script>
+        // Use existing translation logic if needed on load
+        // Simply reusing the script for static text translation
+        const savedLang = localStorage.getItem('selected_language') || 'en';
+        // (Assuming changeLanguage is globally available or we just rely on defaults)
+        // Ideally we should import/call it properly.
+    </script>
+</body>
+
+</html>

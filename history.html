@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithPay | History</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="wallet.css">
+</head>
+
+<body>
+
+    <div class="wallet-container">
+        <!-- Header -->
+        <header class="wallet-header">
+            <div class="back-btn" onclick="window.location.href='wallet.html'" style="cursor: pointer;">
+                <i class="fas fa-arrow-left"></i> <span data-i18n="back">Back</span>
+            </div>
+            <div class="brand" style="font-size: 1.2rem;" data-i18n="history_title">History</div>
+            <div class="user-avatar" onclick="window.location.href='profile.html'" style="cursor: pointer;">V</div>
+        </header>
+
+        <!-- Transaction Filters (Visual Only for now) -->
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.5rem;">
+            <div
+                style="background: var(--accent-ruby); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 500; font-size: 0.9rem;">
+                All</div>
+            <div
+                style="background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 500; font-size: 0.9rem; color: #aaa;">
+                Sent</div>
+            <div
+                style="background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 500; font-size: 0.9rem; color: #aaa;">
+                Received</div>
+            <div
+                style="background: rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 500; font-size: 0.9rem; color: #aaa;">
+                Swaps</div>
+        </div>
+
+        <!-- Transactions List -->
+        <div class="tx-list">
+            <!-- Today -->
+            <div style="color: #666; font-size: 0.85rem; margin-bottom: 0.8rem;">Today</div>
+
+            <div class="tx-item">
+                <div class="tx-left">
+                    <div class="tx-icon" style="color: #4caf50;"><i class="fas fa-arrow-down"></i></div>
+                    <div class="tx-details">
+                        <h4 data-i18n="received">Received USDT</h4>
+                        <p>From: Tk9...j8A • 14:30</p>
+                    </div>
+                </div>
+                <div class="tx-amount tx-inc">+150.00 USDT</div>
+            </div>
+
+            <div class="tx-item">
+                <div class="tx-left">
+                    <div class="tx-icon" style="color: #ff5252;"><i class="fas fa-arrow-up"></i></div>
+                    <div class="tx-details">
+                        <h4>Sent to Mike</h4>
+                        <p>To: @mike_z • 12:15</p>
+                    </div>
+                </div>
+                <div class="tx-amount" style="color: #e0e0e0;">-25.00 USDT</div>
+            </div>
+
+            <div class="tx-item">
+                <div class="tx-left">
+                    <div class="tx-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="tx-details">
+                        <h4>Starbucks Coffee</h4>
+                        <p>Via QR Payment • 09:45</p>
+                    </div>
+                </div>
+                <div class="tx-amount tx-out">-5.20 USDT</div>
+            </div>
+
+            <!-- Yesterday -->
+            <div style="color: #666; font-size: 0.85rem; margin: 1.5rem 0 0.8rem 0;">Yesterday</div>
+
+            <div class="tx-item">
+                <div class="tx-left">
+                    <div class="tx-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="tx-details">
+                        <h4 data-i18n="swapped">Swapped to GEL</h4>
+                        <p>Rate: 2.71</p>
+                    </div>
+                </div>
+                <div class="tx-amount tx-out">-50.00 USDT</div>
+            </div>
+
+            <div class="tx-item">
+                <div class="tx-left">
+                    <div class="tx-icon" style="color: #4caf50;"><i class="fas fa-arrow-down"></i></div>
+                    <div class="tx-details">
+                        <h4 data-i18n="received">Received TON</h4>
+                        <p>From: UQd...k9L</p>
+                    </div>
+                </div>
+                <div class="tx-amount tx-inc">+15.5 TON</div>
+            </div>
+
+            <div class="tx-item">
+                <div class="tx-left">
+                    <div class="tx-icon" style="color: #2979ff;"><i class="fas fa-credit-card"></i></div>
+                    <div class="tx-details">
+                        <h4>Card Top Up</h4>
+                        <p>Visa •••• 4242</p>
+                    </div>
+                </div>
+                <div class="tx-amount tx-inc">+500.00 GEL</div>
+            </div>
+
+            <!-- October 24 -->
+            <div style="color: #666; font-size: 0.85rem; margin: 1.5rem 0 0.8rem 0;">October 24</div>
+            <div class="tx-item">
+                <div class="tx-left">
+                    <div class="tx-icon"><i class="fas fa-users"></i></div>
+                    <div class="tx-details">
+                        <h4>Referral Bonus</h4>
+                        <p>Invited: John Doe</p>
+                    </div>
+                </div>
+                <div class="tx-amount tx-inc">+12.50 USDT</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Floating Navbar -->
+    <nav class="floating-nav">
+        <button class="nav-btn" onclick="window.location.href='wallet.html'">
+            <i class="fas fa-home"></i>
+            <span class="nav-label" data-i18n="nav_home">Home</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='menu.html'">
+            <i class="fas fa-th-large"></i>
+            <span class="nav-label" data-i18n="nav_menu">Menu</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='profile.html'">
+            <i class="fas fa-user"></i>
+            <span class="nav-label" data-i18n="nav_profile">Profile</span>
+        </button>
+    </nav>
+
+    <script src="translations.js"></script>
+    <script>
+        // Use existing translation logic
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithPay | Wallet</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../style.css"> <!-- Base styles -->
+    <link rel="stylesheet" href="wallet.css"> <!-- Wallet specific -->
+</head>
+
+<body>
+
+    <!-- Overlay for Modals -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModals()"></div>
+
+    <!-- Language Switcher in Header (Hidden input for logic, UI handled via modal or dropdown later if needed) -->
+    <!-- For this task, we will add a simple dropdown or button in profile settings, but for now we set up the attributes -->
+
+    <div class="wallet-container">
+        <!-- Header -->
+        <header class="wallet-header">
+            <div class="brand" style="font-size: 1.2rem;">Zenith<span>Pay</span></div>
+            <div class="user-badge" onclick="window.location.href='profile.html'">
+                <span>$2,450.00</span>
+                <div class="user-avatar">V</div>
+            </div>
+        </header>
+
+        <!-- Balance Card -->
+        <div class="balance-card" id="balanceCard">
+            <button class="balance-switch-btn" onclick="switchBalance()">
+                <i class="fas fa-retweet"></i>
+            </button>
+            <div class="balance-label" data-i18n="balance_label">Total Balance</div>
+            <div class="balance-amount" id="balanceAmount">2,450.00 <span class="balance-currency"
+                    id="balanceCurrency">USDT</span></div>
+            <div class="balance-sub" id="balanceSub">≈ 2,448.50 USD / 235,100 RUB</div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions-grid">
+            <button class="action-btn" onclick="openModal('topupModal')">
+                <div class="action-icon"><i class="fas fa-plus"></i></div>
+                <div class="action-label" data-i18n="action_topup">Top Up</div>
+            </button>
+            <button class="action-btn" onclick="openModal('withdrawModal')">
+                <div class="action-icon"><i class="fas fa-arrow-up"></i></div>
+                <div class="action-label" data-i18n="action_send">Send</div>
+            </button>
+            <button class="action-btn" onclick="openModal('qrModal')">
+                <div class="action-icon"><i class="fas fa-qrcode"></i></div>
+                <div class="action-label" data-i18n="action_scan">Scan</div>
+            </button>
+            <button class="action-btn" onclick="openModal('swapModal')">
+                <div class="action-icon"><i class="fas fa-exchange-alt"></i></div>
+                <div class="action-label" data-i18n="action_swap">Swap</div>
+            </button>
+        </div>
+
+        <!-- Banner Carousel -->
+        <div class="banner-carousel">
+            <!-- Referral Banner -->
+            <div class="banner-item" onclick="openModal('referralModal')">
+                <img src="Assets/referal banner.png" alt="Invite Friends">
+            </div>
+
+            <!-- Verify Banner -->
+            <div class="banner-item" onclick="window.location.href='profile.html'">
+                <img src="Assets/VerifyBanner.jpg" alt="Verify Identity">
+            </div>
+
+            <!-- TG Channel Banner -->
+            <div class="banner-item" onclick="window.open('https://t.me/zenithpay', '_blank')">
+                <img src="Assets/TgChannelBanner.jpg" alt="Join Channel">
+            </div>
+        </div>
+
+        <!-- Assets Section -->
+        <div class="section-title" style="margin-top: 1.5rem;">
+            <span data-i18n="my_assets">My Assets</span>
+            <a href="history.html" class="see-all" data-i18n="menu_history">History</a>
+        </div>
+
+        <div class="tx-list">
+            <!-- USDT Asset -->
+            <div class="tx-item" onclick="window.location.href='#'" style="cursor: pointer;">
+                <div class="tx-left">
+                    <div class="tx-icon" style="background: transparent; padding: 0;">
+                        <img src="Assets/USDT_Logo.png" alt="USDT" style="width: 40px; height: 40px;">
+                    </div>
+                    <div class="tx-details">
+                        <h4>Tether (USDT)</h4>
+                        <p>TRC-20</p>
+                    </div>
+                </div>
+                <div class="tx-amount">2,450.00</div>
+            </div>
+
+            <!-- TON Asset -->
+            <div class="tx-item" onclick="window.location.href='#'" style="cursor: pointer;">
+                <div class="tx-left">
+                    <div class="tx-icon" style="background: transparent; padding: 0;">
+                        <img src="Assets/ton.png" alt="TON" style="width: 40px; height: 40px;">
+                    </div>
+                    <div class="tx-details">
+                        <h4>Toncoin (TON)</h4>
+                        <p>The Open Network</p>
+                    </div>
+                </div>
+                <div class="tx-amount">145.50</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- Top Up Modal -->
+    <div id="topupModal" class="wallet-modal">
+        <div class="modal-handle"></div>
+        <h3 class="modal-title" data-i18n="modal_topup_title">Top Up Balance</h3>
+
+        <p class="form-label" data-i18n="select_method">Select Method</p>
+        <div class="coin-grid">
+            <div class="coin-option active" onclick="selectTopToMethod('usdt', this)">
+                <div class="coin-img-container"><img src="Assets/USDT_Logo.png" alt="USDT"></div>
+                <span>USDT (TRC20)</span>
+            </div>
+            <div class="coin-option" onclick="selectTopToMethod('ton', this)">
+                <div class="coin-img-container"><img src="Assets/ton.png" alt="TON"></div>
+                <span>TON</span>
+            </div>
+            <div class="coin-option" onclick="selectTopToMethod('gel', this)">
+                <div class="coin-img-container"><img src="Assets/gel.png" alt="GEL"></div>
+                <span>Bank Card (GEL)</span>
+            </div>
+            <div class="coin-option" onclick="selectTopToMethod('sbp', this)">
+                <div class="coin-img-container"><img src="Assets/sbp.png" alt="SBP" style="border-radius: 50%;"></div>
+                <span>SBP (RUB)</span>
+            </div>
+        </div>
+
+        <!-- DYNAMIC CONTENT SECTIONS -->
+
+        <!-- USDT CONTENT -->
+        <div id="topup-content-usdt" class="method-content active">
+            <div class="form-group">
+                <label class="form-label">Your Depot Address (TRC20)</label>
+                <div class="copy-input-group" onclick="copyText('TE7...ZenithPayAddress...X9', this)">
+                    <div class="truncated-address">TE7...ZenithPayAddress...X9</div>
+                    <button class="btn-copy"><i class="fas fa-copy"></i></button>
+                    <div class="copy-feedback">Copied!</div>
+                </div>
+                <div class="info-note"><i class="fas fa-info-circle"></i> Send only USDT TRC20. Other assets will be
+                    lost.</div>
+            </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=TE7ExampleZenithPayTRC20AddressX9"
+                    alt="USDT QR" class="qr-code-img">
+            </div>
+        </div>
+
+        <!-- TON CONTENT -->
+        <div id="topup-content-ton" class="method-content">
+            <div class="form-group">
+                <label class="form-label">Your Wallet Address (TON)</label>
+                <div class="copy-input-group" onclick="copyText('UQA...ZenithPayTonAddress...B2', this)">
+                    <div class="truncated-address">UQA...ZenithPayTonAddress...B2</div>
+                    <button class="btn-copy"><i class="fas fa-copy"></i></button>
+                    <div class="copy-feedback">Copied!</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Comment / Memo (Required)</label>
+                <div class="copy-input-group" onclick="copyText('849201', this)">
+                    <div class="truncated-address">849201</div>
+                    <button class="btn-copy"><i class="fas fa-copy"></i></button>
+                    <div class="copy-feedback">Copied!</div>
+                </div>
+                <div class="info-note warning"><i class="fas fa-exclamation-triangle"></i> You MUST include the
+                    Comment/Memo or funds will be lost.</div>
+            </div>
+        </div>
+
+        <!-- BANK CARD CONTENT -->
+        <div id="topup-content-gel" class="method-content">
+            <div class="form-group">
+                <label class="form-label" data-i18n="amount">Enter Amount (GEL)</label>
+                <input type="number" class="form-input" placeholder="100">
+            </div>
+            <button class="btn-primary" style="width: 100%;" data-i18n="proceed_payment">Proceed to Payment</button>
+        </div>
+
+        <!-- SBP CONTENT -->
+        <div id="topup-content-sbp" class="method-content">
+            <div class="form-group">
+                <label class="form-label">Phone Number for SBP</label>
+                <div class="copy-input-group" onclick="copyText('+79001234567', this)">
+                    <div class="truncated-address">+7 (900) 123-45-67</div>
+                    <button class="btn-copy"><i class="fas fa-copy"></i></button>
+                    <div class="copy-feedback">Copied!</div>
+                </div>
+                <br>
+                <label class="form-label">Bank</label>
+                <input type="text" class="form-input" value="Sberbank" readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" data-i18n="amount">Amount (RUB)</label>
+                <input type="number" class="form-input" placeholder="Min. 1000">
+            </div>
+
+            <div class="info-note">Send exact amount. Funds are credited automatically.</div>
+
+            <button class="btn-primary" style="margin-top: 1.5rem;" data-i18n="proceed_payment">Proceed to
+                Payment</button>
+        </div>
+
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div id="withdrawModal" class="wallet-modal">
+        <div class="modal-handle"></div>
+        <h3 class="modal-title" data-i18n="modal_withdraw_title">Withdraw Funds</h3>
+
+        <p class="form-label" data-i18n="select_asset">Select Asset</p>
+        <div class="coin-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 2rem;">
+            <div class="coin-option active" onclick="selectWithdrawMethod('usdt', this)">
+                <div class="coin-img-container"><img src="Assets/USDT_Logo.png" alt="USDT"></div>
+                <span>USDT</span>
+            </div>
+            <div class="coin-option" onclick="selectWithdrawMethod('ton', this)">
+                <div class="coin-img-container"><img src="Assets/ton.png" alt="TON"></div>
+                <span>TON</span>
+            </div>
+            <div class="coin-option" onclick="selectWithdrawMethod('gel', this)">
+                <div class="coin-img-container"><img src="Assets/gel.png" alt="GEL"></div>
+                <span>GEL (Card)</span>
+            </div>
+            <div class="coin-option" onclick="selectWithdrawMethod('sbp', this)">
+                <div class="coin-img-container"><img src="Assets/sbp.png" alt="SBP" style="border-radius: 50%;"></div>
+                <span>RUB (SBP)</span>
+            </div>
+        </div>
+
+        <div id="withdraw-fields">
+            <div class="form-group">
+                <label class="form-label" id="withdraw-addr-label" data-i18n="recipient_addr">Recipient Address
+                    (TRC20)</label>
+                <input type="text" class="form-input" placeholder="Paste address here">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" data-i18n="amount">Amount</label>
+                <input type="number" class="form-input" placeholder="0.00">
+                <div style="text-align: right; font-size: 0.8rem; color: #666; margin-top: 0.5rem;">Available: 2,450.00
+                    USDT</div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Network Fee</label>
+                <div style="color: white;" id="withdraw-fee">1.50 USDT</div>
+            </div>
+
+            <button class="btn-primary" style="width: 100%;" data-i18n="confirm_withdraw">Confirm Withdrawal</button>
+        </div>
+    </div>
+
+    <!-- QR Scan Modal -->
+    <div id="qrModal" class="wallet-modal" style="height: 100vh; max-height: 100vh; border-radius: 0; padding: 0;">
+        <!-- Simulated Camera Background -->
+        <div class="qr-camera-feed"></div>
+
+        <div class="qr-scan-modal-body">
+
+            <div class="qr-top-text">
+                <h3 class="qr-instruction">Scan QR Code</h3>
+                <p class="qr-subtext">Align code within frame to pay</p>
+                <!-- TEMP TEST BUTTON -->
+                <button onclick="closeModals(); openModal('paymentModal')"
+                    style="margin-top: 1rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.2); border: 1px solid white; color: white; border-radius: 20px; cursor: pointer;">
+                    <i class="fas fa-magic"></i> Simulate Scan
+                </button>
+            </div>
+
+            <!-- Viewfinder with dark overlay logic via box-shadow -->
+            <div class="qr-viewfinder">
+                <div class="scan-laser"></div>
+                <div class="qr-corners"></div>
+            </div>
+
+            <div class="qr-actions">
+                <button class="qr-action-btn">
+                    <div class="qr-action-icon"><i class="fas fa-image"></i></div>
+                    <span>Gallery</span>
+                </button>
+
+                <!-- Close Button -->
+                <button class="qr-action-btn" onclick="closeModals()">
+                    <div class="qr-action-icon" style="background: rgba(255, 82, 82, 0.2); border-color: #ff5252;"><i
+                            class="fas fa-times" style="color: #ff5252;"></i></div>
+                    <span style="color: #ff5252;">Close</span>
+                </button>
+
+                <button class="qr-action-btn">
+                    <div class="qr-action-icon"><i class="fas fa-bolt"></i></div>
+                    <span>Flash</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Confirmation Modal -->
+    <div id="paymentModal" class="wallet-modal">
+        <div class="modal-handle"></div>
+        <h3 class="modal-title">Confirm Payment</h3>
+
+        <!-- Merchant Info -->
+        <h4 style="text-align: center; margin-top: 1rem; margin-bottom: 0.2rem; font-size: 1.2rem;">Starbucks Coffee
+        </h4>
+        <p style="text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 2rem;">#882910</p>
+
+        <div class="form-group">
+            <label class="form-label" data-i18n="amount">Amount</label>
+            <div class="input-wrapper" style="position: relative;">
+                <input type="number" class="form-input" value="5.20" readonly>
+                <span
+                    style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #888;">USDT</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Payment Method</label>
+            <div
+                style="display: flex; align-items: center; justify-content: space-between; background: #1a1a1a; padding: 1rem; border-radius: 12px; border: 1px solid #333;">
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <div
+                        style="background: var(--accent-ruby); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 500; color: white;">Main Wallet</div>
+                        <div style="font-size: 0.8rem; color: #888;">Balance: 2,450.00 USDT</div>
+                    </div>
+                </div>
+                <i class="fas fa-check-circle" style="color: var(--accent-ruby);"></i>
+            </div>
+        </div>
+
+        <div class="modal-actions" style="margin-top: 2rem;">
+            <button class="btn-primary"
+                style="width: 100%; background: var(--accent-ruby); border: none; padding: 1rem; border-radius: 12px; color: white; font-weight: 600; cursor: pointer;"
+                onclick="closeModals()">
+                Pay <span style="font-weight: 700;">5.20 USDT</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Referral Modal -->
+    <div id="referralModal" class="wallet-modal">
+        <div class="modal-handle"></div>
+        <h3 class="modal-title" data-i18n="referral_program">Referral Program</h3>
+
+        <div class="balance-card" style="background: linear-gradient(135deg, #1a1a1a, #000); padding: 1.5rem;">
+            <div class="balance-label" data-i18n="total_earnings">Total Earnings</div>
+            <div class="balance-amount" style="font-size: 2rem;">$450.00</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" data-i18n="your_invite_link">Your Invite Link</label>
+            <div class="copy-input-group" onclick="copyText('https://zenithpay.io/r/vasik', this)">
+                <div class="truncated-address">https://zenithpay.io/r/vasik</div>
+                <button class="btn-copy"><i class="fas fa-copy"></i></button>
+                <div class="copy-feedback">Copied!</div>
+            </div>
+        </div>
+
+        <div class="section-title" data-i18n="your_referrals">Your Referrals (12)</div>
+        <div class="tx-list">
+            <div class="tx-item">
+                <div class="tx-left">
+                    <div class="tx-icon">JD</div>
+                    <div class="tx-details">
+                        <h4>John Doe</h4>
+                        <p>Joined Oct 24</p>
+                    </div>
+                </div>
+                <div class="tx-amount" style="color: #4caf50;">+$12.50</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Swap Modal -->
+    <div id="swapModal" class="wallet-modal">
+        <div class="modal-handle"></div>
+        <h3 class="modal-title">Swap Assets</h3>
+
+        <div class="swap-container">
+            <!-- From Asset -->
+            <div class="swap-field">
+                <div class="swap-label">From</div>
+                <div class="swap-input-row">
+                    <input type="number" id="swapFromAmount" placeholder="0" oninput="calculateSwap()">
+                    <div class="asset-selector" id="swapFromAsset">
+                        <img src="Assets/USDT_Logo.png" alt="USDT"> <span>USDT</span>
+                    </div>
+                </div>
+                <div class="balance-hint">Balance: 2,450.00</div>
+            </div>
+
+            <!-- Swap Icon -->
+            <div class="swap-icon-container" onclick="toggleSwapDirection()">
+                <div class="swap-circle">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+            </div>
+
+            <!-- To Asset -->
+            <div class="swap-field">
+                <div class="swap-label">To</div>
+                <div class="swap-input-row">
+                    <input type="number" id="swapToAmount" placeholder="0" readonly>
+                    <div class="asset-selector" id="swapToAsset">
+                        <img src="Assets/ton.png" alt="TON"> <span>TON</span>
+                    </div>
+                </div>
+                <div class="balance-hint" id="swapRateDisplay">Price: 1 USDT ≈ 0.19 TON</div>
+            </div>
+
+            <button class="btn-primary" style="width: 100%; margin-top: 1rem;">Confirm Swap</button>
+        </div>
+    </div>
+
+    <!-- Floating Navbar -->
+    <nav class="floating-nav">
+        <button class="nav-btn active" onclick="window.location.href='wallet.html'">
+            <i class="fas fa-home"></i>
+            <span class="nav-label" data-i18n="nav_home">Home</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='menu.html'">
+            <i class="fas fa-th-large"></i>
+            <span class="nav-label" data-i18n="nav_menu">Menu</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='profile.html'">
+            <i class="fas fa-user"></i>
+            <span class="nav-label" data-i18n="nav_profile">Profile</span>
+        </button>
+    </nav>
+
+    <!-- Scripts -->
+    <script src="translations.js"></script>
+    <script>
+
+        function openModal(id) {
+            document.getElementById('modalOverlay').classList.add('active');
+            document.getElementById(id).classList.add('active');
+            document.querySelector('.floating-nav').classList.add('hidden');
+        }
+
+        function closeModals() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.querySelectorAll('.wallet-modal').forEach(m => m.classList.remove('active'));
+            document.querySelector('.floating-nav').classList.remove('hidden');
+        }
+
+        // --- DYNAMIC METHOD SELECTION LOGIC ---
+
+        function selectTopToMethod(method, element) {
+            // Visual Selection
+            const container = element.parentElement;
+            container.querySelectorAll('.coin-option').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            // Hide all contents
+            document.querySelectorAll('#topupModal .method-content').forEach(el => el.classList.remove('active'));
+
+            // Show selected content
+            document.getElementById('topup-content-' + method).classList.add('active');
+        }
+
+        const withdrawConfigs = {
+            'usdt': { label: 'Recipient Address (TRC20)', fee: '1.50 USDT' },
+            'ton': { label: 'Recipient Address (TON)', fee: '0.05 TON' },
+            'gel': { label: 'Card Number (16 digits)', fee: '1.5% + 1 GEL' },
+            'sbp': { label: 'Phone Number', fee: '2.0%' }
+        };
+
+        function selectWithdrawMethod(method, element) {
+            // Visual Selection
+            const container = element.parentElement;
+            container.querySelectorAll('.coin-option').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            // Update Fields
+            const config = withdrawConfigs[method];
+            document.getElementById('withdraw-addr-label').innerText = config.label;
+            document.getElementById('withdraw-fee').innerText = config.fee;
+        }
+
+        // --- BEAUTIFUL COPY LOGIC ---
+        function copyText(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual Feedback
+                const btn = element.querySelector('.btn-copy i');
+                const originalClass = btn.className;
+                const feedback = element.querySelector('.copy-feedback');
+
+                // Switch icon
+                btn.className = 'fas fa-check';
+                btn.style.color = '#00e676';
+
+                // Show floating text
+                feedback.classList.add('visible');
+
+                setTimeout(() => {
+                    btn.className = originalClass;
+                    btn.style.color = '';
+                    feedback.classList.remove('visible');
+                }, 2000);
+            });
+        }
+
+        // --- BALANCE SWITCH LOGIC ---
+        let currentCurrencyIndex = 0;
+        const currencies = [
+            { code: 'USDT', amount: '2,450.00', sub: '≈ 2,448.50 USD / 235,100 RUB' },
+            { code: 'GEL', amount: '6,639.50', sub: '≈ 2,450.00 USDT' },
+            { code: 'RUB', amount: '235,100', sub: '≈ 2,450.00 USDT' }
+        ];
+
+        function switchBalance() {
+            const card = document.getElementById('balanceCard');
+            const amountEl = document.getElementById('balanceAmount');
+            const subEl = document.getElementById('balanceSub');
+
+            // Trigger Animation
+            card.classList.remove('swap-anim-up');
+            void card.offsetWidth; // Trigger reflow
+            card.classList.add('swap-anim-up');
+
+            // Change Data halfway through animation
+            setTimeout(() => {
+                currentCurrencyIndex = (currentCurrencyIndex + 1) % currencies.length;
+                const data = currencies[currentCurrencyIndex];
+
+                amountEl.innerHTML = `${data.amount} <span class="balance-currency">${data.code}</span>`;
+                subEl.innerText = data.sub;
+            }, 200); // 200ms matches 50% of 0.4s animation
+        }
+
+        // --- SWAP LOGIC ---
+        let isUsdtToTon = true;
+        const RATE_USDT_TON = 0.1923; // 1 USDT = ~0.19 TON
+        const RATE_TON_USDT = 5.2;    // 1 TON = ~5.2 USDT
+
+        function toggleSwapDirection() {
+            isUsdtToTon = !isUsdtToTon;
+
+            // DOM Elements
+            const fromImg = document.querySelector('#swapFromAsset img');
+            const fromSpan = document.querySelector('#swapFromAsset span');
+            const toImg = document.querySelector('#swapToAsset img');
+            const toSpan = document.querySelector('#swapToAsset span');
+            const rateDisplay = document.getElementById('swapRateDisplay');
+
+            // Swap Assets visually
+            if (isUsdtToTon) {
+                fromImg.src = 'Assets/USDT_Logo.png';
+                fromSpan.innerText = 'USDT';
+                toImg.src = 'Assets/ton.png';
+                toSpan.innerText = 'TON';
+                rateDisplay.innerText = `Price: 1 USDT ≈ ${RATE_USDT_TON} TON`;
+            } else {
+                fromImg.src = 'Assets/ton.png';
+                fromSpan.innerText = 'TON';
+                toImg.src = 'Assets/USDT_Logo.png';
+                toSpan.innerText = 'USDT';
+                rateDisplay.innerText = `Price: 1 TON ≈ ${RATE_TON_USDT} USDT`;
+            }
+
+            // Clear inputs
+            document.getElementById('swapFromAmount').value = '';
+            document.getElementById('swapToAmount').value = '';
+        }
+
+        function calculateSwap() {
+            const amount = parseFloat(document.getElementById('swapFromAmount').value);
+            const toInput = document.getElementById('swapToAmount');
+
+            if (!amount || amount <= 0) {
+                toInput.value = '';
+                return;
+            }
+
+            if (isUsdtToTon) {
+                toInput.value = (amount * RATE_USDT_TON).toFixed(4);
+            } else {
+                toInput.value = (amount * RATE_TON_USDT).toFixed(2);
+            }
+        }
+
+        // --- NAVBAR INTERACTION ---
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Remove active class from all
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                // Add to clicked
+                this.classList.add('active');
+            });
+        });
+    </script>
+    <script>
+        // Banner Auto-Scroll
+        const carousel = document.querySelector('.banner-carousel');
+        let scrollAmount = 0;
+        let slideTimer;
+
+        function startAutoScroll() {
+            slideTimer = setInterval(() => {
+                const itemWidth = carousel.querySelector('.banner-item').offsetWidth;
+                const gap = 16; // 1rem gap
+                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+
+                scrollAmount += (itemWidth + gap);
+
+                if (scrollAmount > maxScroll) {
+                    scrollAmount = 0;
+                }
+
+                carousel.scrollTo({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }, 4000); // 4 seconds
+        }
+
+        // Pause on touch/hover
+        carousel.addEventListener('touchstart', () => clearInterval(slideTimer));
+        carousel.addEventListener('touchend', startAutoScroll);
+
+        startAutoScroll();
+    </script>
+</body>
+
+</html>

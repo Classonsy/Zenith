@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithPay | Staking</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="wallet.css">
+</head>
+
+<body>
+
+    <div class="wallet-container">
+        <!-- Header -->
+        <header class="wallet-header">
+            <button class="icon-btn" onclick="window.location.href='menu.html'">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="brand" style="font-size: 1.2rem; margin-left: auto; margin-right: auto;"
+                data-i18n="menu_staking">Staking</div>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <!-- Staking Stats -->
+        <div class="staking-stats" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+            <div class="stat-card"
+                style="flex: 1; background: #1a1a1a; padding: 1rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
+                <div style="font-size: 0.8rem; color: #888; margin-bottom: 0.5rem;" data-i18n="total_staked">Total
+                    Staked</div>
+                <div style="font-size: 1.2rem; font-weight: 700; color: white;">$1,250.40</div>
+            </div>
+            <div class="stat-card"
+                style="flex: 1; background: #1a1a1a; padding: 1rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
+                <div style="font-size: 0.8rem; color: #888; margin-bottom: 0.5rem;" data-i18n="total_profit">Total
+                    Profit</div>
+                <div style="font-size: 1.2rem; font-weight: 700; color: #00e676;">+$42.50</div>
+            </div>
+        </div>
+
+        <!-- Pools -->
+        <h3 style="color: white; font-weight: 600; margin-bottom: 1rem;" data-i18n="available_pools">Available Pools
+        </h3>
+
+        <!-- Pool 1: USDT -->
+        <div class="pool-card"
+            style="background: linear-gradient(145deg, #1e1e1e, #141414); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(0, 230, 118, 0.1); margin-bottom: 1rem; position: relative; overflow: hidden;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <img src="Assets/USDT_Logo.png" style="width: 48px; height: 48px;">
+                    <div>
+                        <div style="font-weight: 700; font-size: 1.2rem; color: white;">USDT Savings</div>
+                        <div style="color: #888; font-size: 0.9rem;">Flexible Term</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 1.4rem; font-weight: 700; color: #00e676;">12%</div>
+                    <div style="color: #888; font-size: 0.8rem;">APY</div>
+                </div>
+            </div>
+            <button class="btn-stake"
+                style="width: 100%; padding: 1rem; background: rgba(0, 230, 118, 0.1); color: #00e676; border: 1px solid #00e676; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.2s;"
+                onclick="alert('Staking logic comming soon!')" data-i18n="action_stake">Stake Now</button>
+        </div>
+
+        <!-- Pool 2: TON -->
+        <div class="pool-card"
+            style="background: linear-gradient(145deg, #1e1e1e, #141414); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(41, 121, 255, 0.1); margin-bottom: 1rem; position: relative; overflow: hidden;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <img src="Assets/ton.png" style="width: 48px; height: 48px;">
+                    <div>
+                        <div style="font-weight: 700; font-size: 1.2rem; color: white;">TON Staking</div>
+                        <div style="color: #888; font-size: 0.9rem;">30 Days Lock</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 1.4rem; font-weight: 700; color: #2979ff;">8.5%</div>
+                    <div style="color: #888; font-size: 0.8rem;">APY</div>
+                </div>
+            </div>
+            <button class="btn-stake"
+                style="width: 100%; padding: 1rem; background: rgba(41, 121, 255, 0.1); color: #2979ff; border: 1px solid #2979ff; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.2s;"
+                onclick="alert('Staking logic comming soon!')" data-i18n="action_stake">Stake Now</button>
+        </div>
+
+    </div>
+
+    <!-- Floating Navbar -->
+    <nav class="floating-nav">
+        <button class="nav-btn" onclick="window.location.href='wallet.html'">
+            <i class="fas fa-home"></i>
+            <span class="nav-label" data-i18n="nav_home">Home</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='menu.html'">
+            <i class="fas fa-th-large"></i>
+            <span class="nav-label" data-i18n="nav_menu">Menu</span>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='profile.html'">
+            <i class="fas fa-user"></i>
+            <span class="nav-label" data-i18n="nav_profile">Profile</span>
+        </button>
+    </nav>
+
+    <script src="translations.js"></script>
+</body>
+
+</html>
